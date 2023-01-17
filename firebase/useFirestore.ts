@@ -46,12 +46,15 @@ export function useFirestore(_ref: Query<DocumentData>) {
 
 export function useLimitFirestore(_ref: Query<DocumentData>, _limit: number) {
   const [docs, setDocs] = useState<UsersPostsType[]>([]);
+  const [postsLoading, setPostsLoading] = useState<boolean>(false);
 
   useEffect(() => {
+    setPostsLoading(true);
     const q = query(_ref, orderBy("timestamps", "desc"), limit(_limit));
     const unsub = onSnapshot(q, (next: any) => {
       if (next.empty) {
         console.log("Doc is empty");
+        setPostsLoading(false);
       } else {
         const _documents: UsersPostsType[] = [];
         next.forEach((doc: any) => {
@@ -64,9 +67,10 @@ export function useLimitFirestore(_ref: Query<DocumentData>, _limit: number) {
         });
 
         setDocs(() => _documents);
+        setPostsLoading(false);
       }
     });
     return () => unsub();
   }, []);
-  return { docs };
+  return { docs, postsLoading };
 }

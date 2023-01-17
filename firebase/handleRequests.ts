@@ -5,8 +5,10 @@ import { getUser, getUsers } from "./utils";
 
 export function useHandleRequests(userId: string) {
   const [req2, setReq2] = useState<UsersList[]>([]);
+  const [getRequestLoading, setGetRequestLoading] = useState<boolean>(false);
 
   useEffect(() => {
+    setGetRequestLoading(true);
     const userdoc_ref = getUser(userId);
 
     const unsub = onSnapshot(userdoc_ref, async (doc) => {
@@ -22,8 +24,10 @@ export function useHandleRequests(userId: string) {
               }
             });
             setReq2(newreq);
+            setGetRequestLoading(false);
           }
         }
+        setGetRequestLoading(false);
       } catch (error) {
         console.log({ error });
       }
@@ -31,5 +35,5 @@ export function useHandleRequests(userId: string) {
     return () => unsub();
   }, []);
 
-  return req2;
+  return { req2, getRequestLoading };
 }

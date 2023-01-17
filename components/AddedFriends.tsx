@@ -10,7 +10,7 @@ type AddedFriendsProps = {
 };
 
 export function AddedFriends({ user }: AddedFriendsProps) {
-  const addedFriends = useGetAccepted(user.uid);
+  const { acceptedFriends, getFriendsLoading } = useGetAccepted(user.uid);
   const removeFriend = (added_id: string, adder_id: string) => {
     useHandleRemove(added_id, adder_id, "accepted");
   };
@@ -21,9 +21,13 @@ export function AddedFriends({ user }: AddedFriendsProps) {
       id="child_2"
     >
       <h1 className="text-lg">Friends</h1>
-      <div className="p-4 flex flex-col gap-3">
-        {addedFriends?.length > 0 ? (
-          addedFriends?.map((acc_user) => (
+      <div
+        style={{ scrollbarWidth: "none" }}
+        className="p-4 flex flex-col gap-3 h-80 overflow-y-auto"
+        id="latest-posts"
+      >
+        {acceptedFriends?.length > 0 ? (
+          acceptedFriends?.map((acc_user) => (
             <div key={acc_user.id}>
               <div className="flex gap-2 items-center w-full h-16 px-3">
                 <p className="grow text-lg">{acc_user.displayName}</p>
@@ -41,6 +45,8 @@ export function AddedFriends({ user }: AddedFriendsProps) {
               </div>
             </div>
           ))
+        ) : getFriendsLoading ? (
+          <div>We are fetching your friends for you...</div>
         ) : (
           <div>
             <h1>You currently have 0 friends</h1>

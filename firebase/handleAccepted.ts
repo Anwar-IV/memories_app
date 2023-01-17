@@ -5,8 +5,10 @@ import { getUser, getUsers } from "./utils";
 
 export function useGetAccepted(userId: string) {
   const [acceptedFriends, setAcceptedFriends] = useState<UsersList[]>([]);
+  const [getFriendsLoading, setGetFriendsLoading] = useState<boolean>(false);
 
   useEffect(() => {
+    setGetFriendsLoading(true);
     const user_ref = getUser(userId);
 
     const unsub = onSnapshot(user_ref, async (doc) => {
@@ -23,10 +25,12 @@ export function useGetAccepted(userId: string) {
             }
           });
           setAcceptedFriends(new_accept);
+          setGetFriendsLoading(false);
         }
       }
+      setGetFriendsLoading(false);
     });
     return () => unsub();
   }, []);
-  return acceptedFriends;
+  return { acceptedFriends, getFriendsLoading };
 }

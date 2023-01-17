@@ -19,7 +19,7 @@ export function PendingRequests({ user }: PendingRequestsProps) {
   const addFriend = (addedId: string, adderId: string) => {
     useHandleAdd(addedId, adderId);
   };
-  const req2 = useHandleRequests(user.uid);
+  const { req2, getRequestLoading } = useHandleRequests(user.uid);
   const rejectRequest = (requester_id: string, rejecter_id: string) => {
     useHandleRemove(requester_id, rejecter_id, "requested");
   };
@@ -30,7 +30,12 @@ export function PendingRequests({ user }: PendingRequestsProps) {
       id="child_1"
     >
       <h1 className="text-lg">Pending Requests</h1>
-      <div className="p-4 flex flex-col gap-3">
+
+      <div
+        className="p-4 flex flex-col gap-3 h-80 overflow-y-auto"
+        style={{ scrollbarWidth: "none" }}
+        id="latest-posts"
+      >
         {req2.length > 0 ? (
           req2.map((req_user) => (
             <div key={req_user.id}>
@@ -59,6 +64,8 @@ export function PendingRequests({ user }: PendingRequestsProps) {
               </div>
             </div>
           ))
+        ) : getRequestLoading ? (
+          <div>We are fetching your requests for you...</div>
         ) : (
           <div>
             <p>You currently have 0 requests</p>

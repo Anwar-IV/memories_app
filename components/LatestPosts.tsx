@@ -9,7 +9,7 @@ type LatestPostsProps = {
 
 export function LatestPosts({ user }: LatestPostsProps) {
   const collection_ref = collectionGroup(firestore_instance, "posts");
-  const { docs } = useLimitFirestore(collection_ref, 4);
+  const { docs, postsLoading } = useLimitFirestore(collection_ref, 4);
   return (
     <div
       className="h-96 w-124 bg-sky-200 shadow-xl rounded-lg text-center py-3"
@@ -18,10 +18,12 @@ export function LatestPosts({ user }: LatestPostsProps) {
       <h1 className="text-lg">Latest Posts</h1>
       <div
         className="h-80 overflow-y-auto"
-        style={{ scrollbarWidth: "none" }}
         id="latest-posts"
+        style={{ scrollbarWidth: "none" }}
       >
-        {docs.length > 0 &&
+        {postsLoading ? (
+          <div>We are fetching all the latest posts...</div>
+        ) : docs.length > 0 ? (
           docs.map((post) => (
             <div
               key={post.id}
@@ -34,7 +36,10 @@ export function LatestPosts({ user }: LatestPostsProps) {
                 <p>{post.post}</p>
               </div>
             </div>
-          ))}
+          ))
+        ) : (
+          <div>There are no posts currently</div>
+        )}
       </div>
     </div>
   );

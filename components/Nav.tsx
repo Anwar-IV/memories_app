@@ -7,10 +7,14 @@ import { auth } from "../firebase/config";
 import { MdOutlineClose } from "react-icons/md";
 import Head from "next/head";
 
-export function Nav() {
+type NavProps = {
+  hovering: boolean;
+  setHovering: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+export function Nav({ hovering, setHovering }: NavProps) {
   const router = useRouter();
   const [user, loading, error] = useAuthState(auth);
-  const [hovering, setHovering] = useState(false);
 
   const handleSignout = async () => {
     try {

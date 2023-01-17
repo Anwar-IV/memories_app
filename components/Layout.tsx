@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { Nav } from "./Nav";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -7,7 +7,6 @@ type LayoutProps = {
 };
 
 import { Poppins } from "@next/font/google";
-import Head from "next/head";
 
 const poppins_400 = Poppins({
   weight: "400",
@@ -15,12 +14,18 @@ const poppins_400 = Poppins({
 });
 
 export function Layout({ children }: LayoutProps) {
+  const [hovering, setHovering] = useState(false);
+
+  const handleClick = () => {
+    setHovering(false);
+  };
+
   return (
     <div className={`${poppins_400.className}`}>
       <div className="max-w-full bg-gradient-to-r from-cyan-500 to-blue-400 h-12 fixed w-full z-50 top-0">
-        <Nav />
+        <Nav hovering={hovering} setHovering={setHovering} />
       </div>
-      <div>{children}</div>
+      <div onClick={handleClick}>{children}</div>
     </div>
   );
 }
