@@ -1,11 +1,5 @@
 import { User } from "firebase/auth";
-import {
-  collection,
-  getDoc,
-  onSnapshot,
-  orderBy,
-  query,
-} from "firebase/firestore";
+import { collection, getDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, firestore_instance } from "../firebase/config";
