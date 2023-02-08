@@ -25,7 +25,9 @@ export function Layout({ children }: LayoutProps) {
       <div className="max-w-full bg-gradient-to-r from-cyan-500 to-blue-400 h-12 fixed w-full z-50 top-0">
         <Nav hovering={hovering} setHovering={setHovering} />
       </div>
-      <div onClick={handleClick}>{children}</div>
+      <div onClick={handleClick} className="pb-16">
+        {children}
+      </div>
     </div>
   );
 }
