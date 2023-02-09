@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useState } from "react";
 import { Nav } from "./Nav";
 import "react-toastify/dist/ReactToastify.css";
 

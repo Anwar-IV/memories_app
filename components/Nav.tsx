@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { auth } from "../firebase/config";
 import { MdOutlineClose } from "react-icons/md";
+import { motion } from "framer-motion";
 import Head from "next/head";
 
 type NavProps = {
@@ -16,10 +17,15 @@ export function Nav({ hovering, setHovering }: NavProps) {
   const router = useRouter();
   const [user, loading, error] = useAuthState(auth);
 
+  const handleClick = () => {
+    setHovering(false);
+    localStorage.setItem("ran", "true");
+  };
+
   const handleSignout = async () => {
     try {
       await signOut(auth);
-      setHovering(false);
+      handleClick;
     } catch (error) {
       console.log({ error });
     }
@@ -52,7 +58,7 @@ export function Nav({ hovering, setHovering }: NavProps) {
             Join Now
           </Link>
         ) : (
-          <div className="flex">
+          <div className="flex relative">
             {/* 
               ------HERE IN CASE IMG DOESN'T WORK------
             <svg
@@ -74,13 +80,27 @@ export function Nav({ hovering, setHovering }: NavProps) {
                 </clipPath>
               </defs>
             </svg> */}
+            {localStorage.getItem("ran") != "true" && (
+              <motion.div
+                initial={{ y: -1000 }}
+                animate={{ y: 0 }}
+                transition={{ delay: 1, type: "spring" }}
+                onClick={handleClick}
+                className="w-36 text-center h-40 rounded-lg mt-4 bg-green-400 absolute right-16 flex justify-center items-center p-4 shadow-lg"
+              >
+                <p>Click on the light ray logo to navigate around memories</p>
+              </motion.div>
+            )}
+
             <img
               src="/light.svg"
               alt="light"
               className="mt-1 mr-3 transition-all cursor-pointer w-12"
-              onClick={() => setHovering(!hovering)}
+              onClick={() => {
+                localStorage.setItem("ran", "true");
+                setHovering(!hovering);
+              }}
             />
-
             <div
               className={
                 hovering
@@ -93,33 +113,24 @@ export function Nav({ hovering, setHovering }: NavProps) {
                   <p>Hey {user.displayName}</p>
                   <div
                     className="ml-auto bg-red-400 cursor-pointer opacity-90 hover:opacity-100 w-8 rounded-lg flex justify-center "
-                    onClick={() => setHovering(false)}
+                    onClick={handleClick}
                   >
                     <MdOutlineClose size={30} />
                   </div>
                 </span>
 
                 <ul className="mt-4">
-                  <Link
-                    href={`/${user.uid}`}
-                    onClick={() => setHovering(false)}
-                  >
+                  <Link href={`/${user.uid}`} onClick={handleClick}>
                     <li className="bg-sky-400 opacity-80 my-1 pl-2 hover:opacity-100 hover:border-l hover:border-white rounded-md cursor-pointer">
                       Dashboard
                     </li>
                   </Link>
-                  <Link
-                    href={`/${user?.uid}/posts`}
-                    onClick={() => setHovering(false)}
-                  >
+                  <Link href={`/${user?.uid}/posts`} onClick={handleClick}>
                     <li className="bg-sky-400 opacity-80 my-1 pl-2 hover:opacity-100 hover:border-l hover:border-white rounded-md cursor-pointer">
                       Posts
                     </li>
                   </Link>
-                  <Link
-                    href={`/${user.uid}/friends`}
-                    onClick={() => setHovering(false)}
-                  >
+                  <Link href={`/${user.uid}/friends`} onClick={handleClick}>
                     <li className="bg-sky-400 opacity-80 my-1 pl-2 hover:opacity-100 hover:border-l hover:border-white rounded-md cursor-pointer">
                       Friends
                     </li>
