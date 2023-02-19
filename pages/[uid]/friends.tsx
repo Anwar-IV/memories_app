@@ -1,4 +1,3 @@
-import { collection, DocumentData, getDocs } from "firebase/firestore";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -61,7 +60,7 @@ export default function Friends() {
   return (
     <div className="w-max h-max mx-auto">
       <div
-        className="bg-sky-200 mx-auto shadow-xl min-h-56 max-h-max pb-4 w-124 mt-36 rounded-lg flex flex-col align-center"
+        className="bg-sky-200  mx-auto shadow-xl min-h-56 max-h-max pb-4 w-124 w-36 mt-36 rounded-lg flex flex-col align-center"
         id="searchbox_1"
       >
         <h1 className="py-4 text-center text-2xl">Add a new friend:</h1>
@@ -73,7 +72,7 @@ export default function Friends() {
             onChange={(e) => setText(e.target.value)}
           />
           <button
-            className="min-w-20 h-12 ml-2 bg-sky-300 px-2 rounded-lg shadow-lg hover:border-blue-500 hover:border-2 cursor-pointer transition transition-500"
+            className="min-w-20 h-12 ml-2 bg-sky-300 px-2 rounded-lg shadow-lg hover:border-blue-500 hover:border cursor-pointer"
             onClick={searchFriends}
           >
             Search
@@ -104,7 +103,7 @@ export default function Friends() {
         )}
       </div>
       <ToastContainer position="top-left" />
-      <div className="w-[1200px] h-96  mt-24 flex gap-8" id="friend_1">
+      <div className="w-[1200px] h-96  md:mt-16 flex gap-8" id="friend_1">
         {user && <PendingRequests user={user} />}
         {user && <AddedFriends user={user} />}
         {user && <LatestPosts user={user} />}

@@ -25,6 +25,23 @@ a {
   display: none;
 }
 
+#searchbox_1 {
+  width: 400px;
+}
+#search-io {
+  flex-direction: column;
+  align-items: center;
+  width: 350px;
+  gap: 5px;
+}
+#search-io > input {
+  max-width: 100%;
+}
+#search-io > button {
+  width: 100%;
+  margin: 0;
+}
+
 @media (max-width: 1200px) {
   #friend_1 {
     margin-top: 40px;
@@ -71,25 +88,6 @@ a {
   }
 }
 
-@media (max-width: 700px) {
-  #searchbox_1 {
-    width: 400px;
-  }
-  #search-io {
-    flex-direction: column;
-    align-items: center;
-    width: 350px;
-    gap: 5px;
-  }
-  #search-io > input {
-    max-width: 100%;
-  }
-  #search-io > button {
-    width: 100%;
-    margin: 0;
-  }
-}
-
 @media (max-width: 600px) {
   #friend_1 {
     grid-template-areas:
@@ -108,5 +106,12 @@ a {
   }
   #child_1 {
     min-width: 400px;
+  }
+}
+
+@media (max-width: 450px) {
+  html,
+  body {
+    overflow-x: auto;
   }
 }

@@ -41,11 +41,12 @@ export default function Login() {
 
   return (
     <div className="h-full w-full flex justify-center">
-      <div className="bg-sky-300 p-5 rounded-lg mt-20 w-124 mx-4 h-72 shadow-lg">
+      <div className="bg-sky-400 p-5 rounded-lg mt-20 w-124 mx-4 h-72 shadow-lg">
         <h2 className="text-4xl text-center text-white">Join Today</h2>
         <div className="flex flex-col h-5/6 mt-3 text-lg">
           <h3 className="grow">
-            Sign in below with one of our providers and to get started today.
+            Click the link below to sign in with your Google account and get
+            started today.
           </h3>
           <button
             className="shadow-md bg-teal-400 py-2 px-4 rounded-lg text-lg flex gap-4 justify-center relative opacity-90 hover:opacity-100 transition-all active:scale-98 "
@@ -60,7 +61,7 @@ export default function Login() {
                 transform: "translate(0, -2.5px)",
               }}
             />
-            Sign in with Google
+            Sign up with Google
           </button>
         </div>
       </div>

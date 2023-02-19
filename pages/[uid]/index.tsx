@@ -47,7 +47,7 @@ export default function WelcomeHome() {
       ) : !loading && user && router.query.uid !== user.uid ? (
         <UnaddedFriend userId={router.query.uid} visitingUser={user} />
       ) : (
-        <div className="mt-28 md:w-[600px] sm:w-5/6 w-5/6 h-64 bg-sky-400 rounded-lg m-auto flex pt-4 flex-col align-center shadow-xl">
+        <div className="mt-28 md:w-[600px] sm:w-5/6 w-5/6 h-64 max-[428px]:h-72 bg-sky-400 rounded-lg m-auto flex pt-4 flex-col align-center shadow-xl">
           <h1 className="text-3xl text-center text-sky-50">
             Welcome {user?.displayName}
           </h1>

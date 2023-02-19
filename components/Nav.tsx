@@ -48,16 +48,7 @@ export function Nav({ hovering, setHovering }: NavProps) {
         <Link href={"/"} className={"ml-7 text-3xl mt-1 text-white"}>
           <h1>Memories</h1>
         </Link>
-        {!user ? (
-          <Link
-            href={"/auth/login"}
-            className={
-              "mr-14 text-l mt-1 text-white rounded-lg bg-cyan-400 p-2 shadow-md hover:opacity-80 transition-opacity"
-            }
-          >
-            Join Now
-          </Link>
-        ) : (
+        {user && (
           <div className="flex relative">
             {/* 
               ------HERE IN CASE IMG DOESN'T WORK------

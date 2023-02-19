@@ -34,7 +34,7 @@ export function Post({ userId }: PostProps) {
   }, []);
 
   return (
-    <div className="mt-16 md:w-[700px] sm:w-[600px] w-[400px] h-max">
+    <div className="mt-16 md:w-[700px] sm:w-[600px] min-[426px]:w-[400px] w-[345px] h-max">
       {docs.length < 1 ? (
         <p className="text-center">There are no posts</p>
       ) : (
@@ -48,7 +48,7 @@ export function Post({ userId }: PostProps) {
             <div
               key={post.id}
               className={
-                "border border-blue-500 p-4 bg-cyan-400 my-4 rounded-lg"
+                "border border-blue-500 p-4 bg-cyan-400 my-4 rounded-lg w-full"
               }
             >
               <p className="text-sm text-sky-50 m-0 p-0">
